@@ -4,7 +4,7 @@ We will call you! This is an employee recruitment role playing board game based 
 ![img_1.png](example_images/img_1.png)
 
 ## Game
-Deal every Applicant four Qualification cards to create their Resume.
+Deal every Applicant six Qualification cards to create their Resume.
 These are private. Reveal the top Job card.
 This is the Job the Applicants are applying for this round.
 Give all Applicants a minute or so to figure out how they would like to apply for the job and "Build Their Resume".
