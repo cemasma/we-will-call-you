@@ -1,0 +1,305 @@
+<html>
+<head>
+    <title>We will call you!</title>
+    <style>
+        @import 'https://fonts.googleapis.com/css?family=Droid+Sans+Mono';
+
+        html {
+            background-image: linear-gradient(to top right, #30cfd0, #330867);
+        }
+
+        body {
+            height: 95vh;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 0.7fr 1.6fr 0.7fr;
+            grid-template-rows: 0.4fr 1.6fr;
+            gap: 0px 0px;
+            grid-template-areas:
+    "commands header playerList"
+    "left main right";
+        }
+
+        .commands-section {
+            grid-area: commands;
+        }
+
+        .header-section {
+            grid-area: header;
+            color: white;
+        }
+
+        .playerList-section {
+            grid-area: playerList;
+        }
+
+        .left-section {
+            grid-area: left;
+        }
+
+        .main-section {
+            grid-area: main;
+            justify-content: center;
+            align-items: center;
+            font-family: Helvetica,sans-serif;
+            width: 100%;
+        }
+
+        .right-section {
+            grid-area: right;
+        }
+
+        .hands-section {
+            grid-area: hands;
+            width: 0;
+        }
+
+        .container > div {
+            text-align: center;
+            padding: 20px 0;
+        }
+
+        .btn-group button {
+            background-color: #330867;
+            border: 1px solid green;
+            color: white;
+            padding: 10px 24px;
+            cursor: pointer;
+            float: left;
+            width: 100%;
+            margin: 5px;
+        }
+
+        .btn-group:after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        .btn-group button:not(:last-child) {
+            border-right: none;
+        }
+
+        .btn-group button:hover {
+            background-color: #30cfd0;
+        }
+
+        .cards {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card{
+            /* Card Sizing */
+            border-radius: .1in;
+
+            /* Display Properties */
+            margin: 10px;
+
+            justify-content: center;
+            align-items: center;
+            display: flex;
+        }
+
+        .dark{
+            /* Color information */
+            border: 3px solid #330867;
+            color: white;
+            background: #30cfd0;
+        }
+
+        .light{
+            /* Color information */
+            border: 3px solid #330867;
+            color: black;
+            background: white;
+            width: 85px;
+            height: 150px;
+        }
+
+        .text{
+            /*font information*/
+            font-family: Helvetica,sans-serif;
+            font-weight: bolder;
+            font-size: 12px;
+            padding-left:3%;
+            padding-right:3%;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .menu{
+            list-style-type: none;
+            cursor: pointer;
+        }
+
+        .menu li:hover{
+            color: #d9d9d9;
+        }
+
+        .cardstack{
+            width:2.5in;
+            float:left;
+        }
+
+        .stackcard{
+            /* Card Sizing */
+            width: 2.5in;
+            height: 1in;
+            border-radius: .25in;
+
+            /* Display Properties */
+            position:absolute;
+            margin: 10px;
+        }
+
+        .stackcard:nth-child(2){
+            margin: 10px;
+            margin-top: 80px;
+        }
+
+        .stackcard:nth-child(3){
+            margin: 10px;
+            margin-top: 150px;
+        }
+
+        .stackcard:nth-child(4){
+            margin: 10px;
+            margin-top: 220px;
+        }
+
+        .stackcard:nth-child(5){
+            margin: 10px;
+            margin-top: 290px;
+        }
+
+        .stackcard:nth-child(6){
+            margin: 10px;
+            margin-top: 360px;
+        }
+
+        #hand {
+            visibility: hidden;
+        }
+    </style>
+    <script src="/scripts/room-script.js"></script>
+</head>
+<body>
+<input type="hidden" id="roomId" value="{{ .roomId }}">
+<input type="hidden" id="name" value="{{ .name }}">
+<input type="hidden" id="language" value="{{ .language }}">
+
+
+<div class="container">
+    <div class="commands-section">
+        <div id="commands" style="visibility: hidden;" class="btn-group">
+            <button onclick="start()">Start</button>
+            <button onclick="dealCards()">Deal Cards</button>
+            <button onclick="nextInterviewee()">Next Interviewee</button>
+        </div>
+    </div>
+    <div class="header-section">
+        We will call you!
+    </div>
+    <div id="playerList" class="playerList-section">
+
+    </div>
+
+    <div class="left-section">
+
+    </div>
+    <div class="main-section">
+        <label id="interviewerName" style="color: white;">Interviewer</label>
+        <div class="cards">
+            <div class='light card'>
+                <p class='text interviewer-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewer-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewer-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewer-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewer-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewer-card-text'>?</p>
+            </div>
+        </div>
+
+        <div class='dark card'>
+            <p id="job" class='text'>?</p>
+        </div>
+
+        <div class="cards">
+            <div class='light card'>
+                <p class='text interviewee-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewee-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewee-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewee-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewee-card-text'>?</p>
+            </div>
+            <div class='light card'>
+                <p class='text interviewee-card-text'>?</p>
+            </div>
+        </div>
+
+        <label id="intervieweeName" style="color: white;">
+            Interviewee
+        </label>
+    </div>
+    <div class="right-section">
+        <div id="hand" class='cardstack'>
+            <div class='light stackcard'>
+                <ul class='text menu'>
+                    <li onclick="playCard(this)" class="hand-card-text">?</li>
+                </ul>
+            </div>
+            <div class='light stackcard'>
+                <ul class='text menu'>
+                    <li onclick="playCard(this)" class="hand-card-text">?</li>
+                </ul>
+            </div>
+            <div class='light stackcard'>
+                <ul class='text menu'>
+                    <li onclick="playCard(this)" class="hand-card-text">?</li>
+                </ul>
+            </div>
+            <div class='light stackcard'>
+                <ul class='text menu'>
+                    <li onclick="playCard(this)" class="hand-card-text">?</li>
+                </ul>
+            </div>
+            <div class='light stackcard'>
+                <ul class='text menu'>
+                    <li onclick="playCard(this)" class="hand-card-text">?</li>
+                </ul>
+            </div>
+            <div class='light stackcard'>
+                <ul class='text menu'>
+                    <li onclick="playCard(this)" class="hand-card-text">?</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="hands-section">
+
+    </div>
+</div>
+</body>
+</html>

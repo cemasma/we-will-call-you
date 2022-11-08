@@ -1,0 +1,71 @@
+<html>
+<head>
+    <title>We will call you!</title>
+
+    <style>
+        html {
+            background-image: linear-gradient(to top right, #30cfd0, #330867);
+        }
+
+        .login-rectangle {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            width: 30%;
+            height: 50%;
+            background-color: white;
+            border-top-right-radius: 20%;
+            border-bottom-left-radius: 20%;
+        }
+
+        .login-input {
+            margin: 2.5%;
+        }
+    </style>
+
+    <script>
+        function createRoom() {
+            const name = document.getElementById('name').value;
+            const language = document.getElementById('language').value;
+
+            if (!name) {
+                alert('You must enter your name to create a room!');
+                return;
+            }
+
+            fetch('/room', {
+                method: 'POST',
+            }).then((data) => data.json()).then((data) => {
+                window.location = `${window.location.origin}/room/${data.roomId}?name=${name}&language=${language}`;
+            });
+        }
+    </script>
+</head>
+<body>
+<div style="text-align: center;">
+    <div class="login-rectangle">
+        <h1>We will call you!</h1>
+        <label>Employee recruitment role playing board game</label>
+        <hr>
+        <div class="login-input">
+            <label>Enter your name:</label>
+            <input id="name" type="text">
+        </div>
+
+        <div class="login-input">
+            <label>Choose language:</label>
+            <select name="language" id="language">
+                <option value="en">English</option>
+                <option value="tr">Turkish</option>
+            </select>
+        </div>
+
+        <div>
+            <input type="button" value="Play" onclick="createRoom()">
+        </div>
+    </div>
+</div>
+</body>
+</html>
