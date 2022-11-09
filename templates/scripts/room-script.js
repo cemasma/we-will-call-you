@@ -105,7 +105,7 @@ window.onload = function () {
     }
 
     console.log(`${roomId} trying to connect.`);
-    socket = new WebSocket(`ws://localhost:8080/ws/${roomId}?name=${name}&language=${language}`);
+    socket = new WebSocket(`wss://we-will-call-you.onrender.com/ws/${roomId}?name=${name}&language=${language}`);
 
     socket.onopen = function (e) {
         console.log("[open] Connection established");
