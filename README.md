@@ -28,7 +28,7 @@ After all Applicants have made their pitch, the Employer chooses which Applicant
 ## How to run?
 Clone the project and setup go environment then you can run the project with the command at below.
 ```
-git run main.go
+go run main.go
 ```
 
 ## How it works?
