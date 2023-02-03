@@ -19,6 +19,11 @@ const ELEMENT_MAPPING = {
     [PLAYER_TYPES.INTERVIEWEE]: 'interviewee-card-text',
 };
 
+const PROTOCOL_MAPPING = {
+  'http:': 'ws:',
+  'https:': 'wss:'
+};
+
 function openControlPanel() {
     console.log('[openControlPanel] control panel opened.');
     document.getElementById('commands').style.visibility = 'visible';
@@ -105,7 +110,7 @@ window.onload = function () {
     }
 
     console.log(`${roomId} trying to connect.`);
-    socket = new WebSocket(`ws://localhost:8080/ws/${roomId}?name=${name}&language=${language}`);
+    socket = new WebSocket(`${PROTOCOL_MAPPING[window.location.protocol]}//${window.location.host}/ws/${roomId}?name=${name}&language=${language}`);
 
     socket.onopen = function (e) {
         console.log("[open] Connection established");
