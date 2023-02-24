@@ -66,7 +66,8 @@ func (inMemoryRepository InMemoryRepository) GetRandomWords(n int) ([]string, er
 	for i := 0; i < n; i++ {
 		randomIndex := rand.Intn(wordCount)
 
-		for ok, _ := usedIndexes[randomIndex]; ok; {
+		if ok, _ := usedIndexes[randomIndex]; ok {
+			i--
 			randomIndex = rand.Intn(wordCount)
 		}
 
